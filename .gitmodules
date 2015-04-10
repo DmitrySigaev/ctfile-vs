@@ -1,0 +1,3 @@
+[submodule "ctfile"]
+	path = ctfile
+	url = https://github.com/DmitrySigaev/ctfile.git
