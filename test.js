@@ -44,3 +44,8 @@ console.log("Test internal function molfileHeaderTemplate");
 console.log("should return true");
 assert.equal(true, ctfile.ut_getMolHeaderPattern().hasOwnProperty('description'));
 
+console.log("Test internal function poundoutMask");
+console.log("should compare with patterns");
+assert.equal('AAAAAA', ctfile.ut_poundoutMask('A1A2A3'));
+assert.equal('ABBCCC', ctfile.ut_poundoutMask('A1B2C3'));
+
