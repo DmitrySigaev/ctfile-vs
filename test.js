@@ -48,4 +48,5 @@ console.log("Test internal function poundoutMask");
 console.log("should compare with patterns");
 assert.equal('AAAAAA', ctfile.ut_poundoutMask('A1A2A3'));
 assert.equal('ABBCCC', ctfile.ut_poundoutMask('A1B2C3'));
+assert.equal('(ma)2 hello~2world! 2aaa', ctfile.ut_poundoutMask('(ma)2 hel2o~2world! 2a3'));
 
