@@ -51,3 +51,7 @@ assert.equal('ABBCCC', ctfile.ut_poundoutMask('A1B2C3'));
 assert.equal('(ma)2 hello~2world! 2aaa', ctfile.ut_poundoutMask('(ma)2 hel2o~2world! 2a3'));
 assert.equal(undefined, ctfile.ut_poundoutMask('\n2'));
 
+console.log("Test internal function parseLineByTemplate");
+console.log("should compare with patterns");
+assert.deepStrictEqual({ name: 'Test 1' }, ctfile.ut_parseLineByTemplate('Test 1', ctfile.ut_getMolHeaderPattern().line1));
+
