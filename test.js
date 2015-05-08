@@ -46,11 +46,22 @@ assert.equal(true, ctfile.ut_getMolHeaderPattern().hasOwnProperty('description')
 
 console.log("Test internal function poundoutMask");
 console.log("should compare with patterns");
+assert.equal('AAAAAA', ctfile.ut_poundoutMask('AAAAAA'));
 assert.equal('AAAAAA', ctfile.ut_poundoutMask('A1A2A3'));
 assert.equal('ABBCCC', ctfile.ut_poundoutMask('A1B2C3'));
 assert.equal('(ma)2 hello~2world! 2aaa', ctfile.ut_poundoutMask('(ma)2 hel2o~2world! 2a3'));
 assert.equal('\n2', ctfile.ut_poundoutMask('\n2'));
 assert.equal('\ra{aa', ctfile.ut_poundoutMask('\ra{a2'));
+
+console.log("Test internal function poundoutMaskExt");
+console.log("should compare with patterns");
+assert.equal('AAAAAA', ctfile.ut_poundoutMaskExt('AAAAAA'));
+assert.equal('AAAAAA', ctfile.ut_poundoutMaskExt('A1A2A3'));
+assert.equal('ABBCCC', ctfile.ut_poundoutMaskExt('A1B2C3'));
+assert.equal('(ma)) hello~~world! 2aaa', ctfile.ut_poundoutMaskExt('(ma)2 hel2o~2world! 2a3'));
+assert.equal('\n2', ctfile.ut_poundoutMaskExt('\n2'));
+assert.equal('\ra{aa', ctfile.ut_poundoutMaskExt('\ra{a2'));
+
 
 console.log("Test internal function parseLineByTemplate");
 console.log("should compare with patterns");
@@ -108,6 +119,9 @@ assert.equal('\nACETYLCHOLINE & stuff\n   \n   \n', ctfile.ut_cleanInvChars('\n\
 var fs = require('fs');
 var file_data = fs.readFileSync('./ctfile/data-in/accholine.mol', 'utf8');
 var inx = file_data.search(/V[23]000/gi);
+var inx2 = file_data.search(/\n....................2D/gi);
+var inx3 = file_data.search(RegExp('\\n'+ctfile.ut_poundoutMaskExt('.20')+'2D','gi'));
+var inx3 = file_data.search(RegExp('\\n' + ctfile.ut_poundoutMaskExt('.34') + 'V[23]000', 'gi'));
 var subs = file_data.substring(0, inx+5);
 var test2 = ctfile.ut_cleanWSChs2(subs);
 var test3 = ctfile.ut_cleanInvChars(subs);
