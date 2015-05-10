@@ -60,7 +60,10 @@ assert.equal('AAAAAA', ctfile.ut_poundoutMaskExt('A1A2A3'));
 assert.equal('ABBCCC', ctfile.ut_poundoutMaskExt('A1B2C3'));
 assert.equal('(ma)) hello~~world! 2aaa', ctfile.ut_poundoutMaskExt('(ma)2 hel2o~2world! 2a3'));
 assert.equal('\n2', ctfile.ut_poundoutMaskExt('\n2'));
+assert.equal('\\n\\n', ctfile.ut_poundoutMaskExt('\\n2'));
 assert.equal('\ra{aa', ctfile.ut_poundoutMaskExt('\ra{a2'));
+assert.equal('\\d\\d', ctfile.ut_poundoutMaskExt('\\d2'));
+assert.equal('\\r\\rabb!!!!test\\n\\n', ctfile.ut_poundoutMaskExt('\\r2a1b2!4test\\n\\n1'));
 
 
 console.log("Test internal function parseLineByTemplate");
@@ -119,8 +122,9 @@ assert.equal('\nACETYLCHOLINE & stuff\n   \n   \n', ctfile.ut_cleanInvChars('\n\
 var fs = require('fs');
 var file_data = fs.readFileSync('./ctfile/data-in/accholine.mol', 'utf8');
 var inx = file_data.search(/V[23]000/gi);
-var inx2 = file_data.search(/\n....................2D/gi);
-var inx3 = file_data.search(RegExp('\\n'+ctfile.ut_poundoutMaskExt('.20')+'2D','gi'));
+var inx2 = file_data.search(/\n..........\d\d\d\d\d\d\d\d\d\d[23]D/gi);
+var inx3 = file_data.search(RegExp('\\n'+ctfile.ut_poundoutMaskExt('.20')+'[23]D','gi'));
+var inx4 = file_data.search(RegExp('\\n' + ctfile.ut_poundoutMaskExt('.10') + ctfile.ut_poundoutMaskExt('\\d10') + '[23]D', 'gi'));
 var inx3 = file_data.search(RegExp('\\n' + ctfile.ut_poundoutMaskExt('.34') + 'V[23]000', 'gi'));
 var subs = file_data.substring(0, inx+5);
 var test2 = ctfile.ut_cleanWSChs2(subs);
