@@ -65,6 +65,9 @@ assert.equal('\ra{aa', ctfile.ut_poundoutMaskExt('\ra{a2'));
 assert.equal('\\d\\d', ctfile.ut_poundoutMaskExt('\\d2'));
 assert.equal('\\r\\rabb!!!!test\\n\\n', ctfile.ut_poundoutMaskExt('\\r2a1b2!4test\\n\\n1'));
 
+console.log("Test internal function countRegExpEntry");
+console.log("should compare with patterns");
+assert.equal(4, ctfile.ut_countRegExpEntry(/@1/g, '1@12@1 ` ~@1 02 @1@2'));
 
 console.log("Test internal function parseLineByTemplate");
 console.log("should compare with patterns");
@@ -121,11 +124,14 @@ assert.equal('\nACETYLCHOLINE & stuff\n   \n   \n', ctfile.ut_cleanInvChars('\n\
 
 var fs = require('fs');
 var file_data = fs.readFileSync('./ctfile/data-in/accholine.mol', 'utf8');
+
 var inx = file_data.search(/V[23]000/gi);
 var inx2 = file_data.search(/\n..........\d\d\d\d\d\d\d\d\d\d[23]D/gi);
 var inx3 = file_data.search(RegExp('\\n'+ctfile.ut_poundoutMaskExt('.20')+'[23]D','gi'));
 var inx4 = file_data.search(RegExp('\\n' + ctfile.ut_poundoutMaskExt('.10') + ctfile.ut_poundoutMaskExt('\\d10') + '[23]D', 'gi'));
-var inx3 = file_data.search(RegExp('\\n' + ctfile.ut_poundoutMaskExt('.34') + 'V[23]000', 'gi'));
+var inx5 = file_data.search(RegExp('\\n' + ctfile.ut_poundoutMaskExt('.10\\d10') + '[23]D', 'gi'));
+
+var inx6 = file_data.search(RegExp('\\n' + ctfile.ut_poundoutMaskExt('.34') + 'V[23]000', 'gi'));
 var subs = file_data.substring(0, inx+5);
 var test2 = ctfile.ut_cleanWSChs2(subs);
 var test3 = ctfile.ut_cleanInvChars(subs);
