@@ -14,11 +14,16 @@ process.argv.forEach(function (val, index, array) {
 	console.log(index + ': ' + val);
 });
 
+/* Unit Test*/
+require("./test-vs");
+
 /* declaration of modules  */
 var assert = require('assert');
 var ctfile = require("./ctfile");
 console.log("Test ctfile.getVersion method(Test for deep equality)");
 assert.deepStrictEqual({ moduleVersion: '0.0.0' }, ctfile.getVersion());
+
+
 console.log("Test internal function parseFlag");
 console.log("should return true");
 assert.equal(true, ctfile.ut_parseFlag(1));
@@ -121,20 +126,3 @@ console.log("Test internal function ut_cleanInvChars");
 console.log("should compare with patterns");
 assert.equal('\nACETYLCHOLINE & stuff\n   \n   \n', ctfile.ut_cleanInvChars('\n\r\f\v\tACETYLCHOLINE & stuff\n  \r\f\v \t\n \u00a0\u00a0  \n', ';'));
 
-
-var fs = require('fs');
-var file_data = fs.readFileSync('./ctfile/data-in/accholine.mol', 'utf8');
-
-var inx = file_data.search(/V[23]000/gi);
-var inx2 = file_data.search(/\n..........\d\d\d\d\d\d\d\d\d\d[23]D/gi);
-var inx3 = file_data.search(RegExp('\\n'+ctfile.ut_poundoutMaskExt('.20')+'[23]D','gi'));
-var inx4 = file_data.search(RegExp('\\n' + ctfile.ut_poundoutMaskExt('.10') + ctfile.ut_poundoutMaskExt('\\d10') + '[23]D', 'gi'));
-var inx5 = file_data.search(RegExp('\\n' + ctfile.ut_poundoutMaskExt('.10\\d10') + '[23]D', 'gi'));
-
-var inx6 = file_data.search(RegExp('\\n' + ctfile.ut_poundoutMaskExt('.34') + 'V[23]000', 'gi'));
-var subs = file_data.substring(0, inx+5);
-var test2 = ctfile.ut_cleanWSChs2(subs);
-var test3 = ctfile.ut_cleanInvChars(subs);
-
-var test3 = ctfile.ut_cleanInvChars(subs);
-var test2n = ctfile.ut_cleanWSChs2(test3);
