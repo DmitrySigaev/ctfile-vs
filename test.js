@@ -23,7 +23,6 @@ var ctfile = require("./ctfile");
 console.log("Test ctfile.getVersion method(Test for deep equality)");
 assert.deepStrictEqual({ moduleVersion: '0.0.0' }, ctfile.getVersion());
 
-
 console.log("Test internal function parseFlag");
 console.log("should return true");
 assert.equal(true, ctfile.ut_parseFlag(1));
@@ -122,7 +121,10 @@ assert.equal('@ACETYLCHOLINE;&;stuff@GTMACCS-II11299515322D;1;0.00377;0.00000;0;
 assert.equal('@ACETYLCHOLINE;&;stuff@GTMACCS-II11299515322D;1;0.00377;0.00000;0;GST', ctfile.ut_cleanWSChs2('\n\n\nACETYLCHOLINE & stuff\n\n\r\nGTMACCS-II11299515322D 1   0.00377  \r   0.00000     0    GST', ';'));
 
 
-console.log("Test internal function ut_cleanInvChars");
+console.log("Test internal function cleanInvChars");
 console.log("should compare with patterns");
 assert.equal('\nACETYLCHOLINE & stuff\n   \n   \n', ctfile.ut_cleanInvChars('\n\r\f\v\tACETYLCHOLINE & stuff\n  \r\f\v \t\n \u00a0\u00a0  \n', ';'));
 
+console.log("Test internal function checkMolfileHeaderDataCorruption");
+console.log("should compare with patterns");
+assert.equal(true, ctfile.ut_checkMolfileHeaderDataCorruption('ACETYLCHOLINE & stuff\nGTMACCS - II11299515322D 1   0.00377     0.00000     0    GST\n \n 10  9  0  0  0  0              2 V2000\n    2.5762   -0.3621    0.0000 N   0  3  3  0  0  0'.repeat(15), ctfile.ut_getMolHeaderPattern().line4).check);
