@@ -14,6 +14,9 @@ process.argv.forEach(function (val, index, array) {
 	console.log(index + ': ' + val);
 });
 
+var path = require("path");
+var local = path.join.bind(path, __dirname);
+
 /* Unit Test*/
 require("./test-vs");
 

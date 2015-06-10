@@ -16,10 +16,13 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Compile Include="ctfile\logger.js" />
     <Compile Include="ctfile\taggeddata.js" />
+    <Compile Include="ctfile\test\logger.test.js" />
     <Compile Include="ctfile\test\str.match.test.js" />
     <Compile Include="ctfile\test\taggeddata.test.js" />
     <Compile Include="test-vs\index.js" />
+    <Compile Include="test-vs\vs.logger.test.js" />
     <Compile Include="test-vs\vs.str.match.test.js" />
     <Compile Include="test-vs\vs.taggeddata.test.js" />
     <Compile Include="test.js" />
